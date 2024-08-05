@@ -156,7 +156,7 @@ MakeRefreshClause(bool concurrent, bool skipData, RangeVar *relation)
  * The matview's "populated" state is changed based on whether the contents
  * reflect the result set of the materialized view's query.
  */
-void
+ObjectAddress
 ExecRefreshMatView(RefreshMatViewStmt *stmt, const char *queryString,
 				   ParamListInfo params, char *completionTag)
 {
@@ -177,6 +177,7 @@ ExecRefreshMatView(RefreshMatViewStmt *stmt, const char *queryString,
 	RefreshClause *refreshClause;
 
 	/* MATERIALIZED_VIEW_FIXME: Refresh MatView is not MPP-fied. */
+	ObjectAddress address;
 
 	/* Determine strength of lock needed. */
 	concurrent = stmt->concurrent;
@@ -376,6 +377,10 @@ ExecRefreshMatView(RefreshMatViewStmt *stmt, const char *queryString,
 
 	/* Restore userid and security context */
 	SetUserIdAndSecContext(save_userid, save_sec_context);
+
+	ObjectAddressSet(address, RelationRelationId, matviewOid);
+
+	return address;
 }
 
 /*

@@ -1049,7 +1049,7 @@ dropdb(const char *dbname, bool missing_ok)
 /*
  * Rename database
  */
-Oid
+ObjectAddress
 RenameDatabase(const char *oldname, const char *newname)
 {
 	Oid			db_id = InvalidOid;
@@ -1057,6 +1057,7 @@ RenameDatabase(const char *oldname, const char *newname)
 	Relation	rel;
 	int			notherbackends;
 	int			npreparedxacts;
+	ObjectAddress address;
 
 	/*
 	 * Look up the target database's OID, and get exclusive lock on it. We
@@ -1131,12 +1132,14 @@ RenameDatabase(const char *oldname, const char *newname)
 				);
 	InvokeObjectPostAlterHook(DatabaseRelationId, db_id, 0);
 
+	ObjectAddressSet(address, DatabaseRelationId, db_id);
+
 	/*
 	 * Close pg_database, but keep lock till commit.
 	 */
 	heap_close(rel, NoLock);
 
-	return db_id;
+	return address;
 }
 
 
@@ -1679,7 +1682,7 @@ AlterDatabaseSet(AlterDatabaseSetStmt *stmt)
 /*
  * ALTER DATABASE name OWNER TO newowner
  */
-Oid
+ObjectAddress
 AlterDatabaseOwner(const char *dbname, Oid newOwnerId)
 {
 	Oid			db_id;
@@ -1689,6 +1692,7 @@ AlterDatabaseOwner(const char *dbname, Oid newOwnerId)
 	SysScanDesc scan;
 	Form_pg_database datForm;
 	Oid			dboid = InvalidOid;
+	ObjectAddress address;
 
 	/*
 	 * Get the old tuple.  We don't need a lock on the database per se,
@@ -1794,12 +1798,14 @@ AlterDatabaseOwner(const char *dbname, Oid newOwnerId)
 
 	InvokeObjectPostAlterHook(DatabaseRelationId, HeapTupleGetOid(tuple), 0);
 
+	ObjectAddressSet(address, DatabaseRelationId, db_id);
+
 	systable_endscan(scan);
 
 	/* Close pg_database, but keep lock till commit */
 	heap_close(rel, NoLock);
 
-	return db_id;
+	return address;
 }
 
 
