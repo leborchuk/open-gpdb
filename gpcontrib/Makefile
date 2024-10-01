@@ -46,7 +46,7 @@ ifeq "$(with_quicklz)" "yes"
 endif
 $(call recurse,all install clean distclean, $(recurse_targets))
 
-all: gpcloud mapreduce orafce
+all: gpcloud mapreduce orafce pgaudit
 
 gpcloud:
 	@if [ "$(enable_gpcloud)" = "yes" ]; then \
@@ -64,6 +64,12 @@ orafce:
 		$(MAKE) -C orafce NO_PGXS=true; \
 	fi
 
+pgaudit:
+	@if [ "$(enable_pgaudit)" == "yes" ]; then \
+  		$(MAKE) -C pgaudit USE_PGXS=1 && \
+  		$(MAKE) -C pgaudit USE_PGXS=1 install; \
+ 	fi
+
 install:
 	@if [ "$(enable_gpcloud)" = "yes" ]; then \
 		$(MAKE) -C gpcloud install && \
@@ -80,6 +86,7 @@ clean:
 	if [ "$(enable_mapreduce)" = "yes" ]; then $(MAKE) -C gpmapreduce clean; fi
 	if [ "$(enable_gpcloud)" = "yes" ]; then $(MAKE) -C gpcloud cleanall; fi
 	if [ "${enable_orafce}" = "yes" ]; then $(MAKE) -C orafce NO_PGXS=true clean; fi
+	if [ "${enable_pgaudit}" = "yes" ]; then $(MAKE) -C pgaudit clean; fi
 
 
 distclean:
