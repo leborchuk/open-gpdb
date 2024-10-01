@@ -14649,9 +14649,6 @@ RemoveInheritance(Relation child_rel, Relation parent_rel, bool is_partition)
 	InvokeObjectPostAlterHookArg(InheritsRelationId,
 								 RelationGetRelid(child_rel), 0,
 								 RelationGetRelid(parent_rel), false);
-
-	/* keep our lock on the parent relation until commit */
-	heap_close(parent_rel, NoLock);
 }
 
 /*
