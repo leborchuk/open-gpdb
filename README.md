@@ -4,11 +4,11 @@
 
 We've forked here the original GPDB repository after Greenplum became a closed-source project. And continue to make it production-ready.
 
-The main goal is to:
-- make bugfixes, especially those that leads to coredump master/segment processes
-- adopt existing GP/PG extensions to the last stable GP version
-- backport stable features from other projects (Postgres > 9.4, Cloudberry)
-- make new stable version (7X) by fixed everything we stumble on.
+The main goal is:
+- to fix bugs, especially those leading to core dump master/segment processes;
+- to adopt existing GP/PG extensions for the latest stable GP version;
+- backporting stable features from other projects (Postgres > 9.4, Cloudberry);
+- creating a new stable version (7.X) by fixing everything we stumble upon.
 
 The current last stable version is 6X. It's used by major of our clients and partners. 
 
