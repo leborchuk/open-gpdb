@@ -20,6 +20,21 @@ If you want to try it right away - https://yandex.cloud/en/services/managed-gree
 
 ## Repositories
 
+This is the main repository for Greenplum Database. Alongside this, there are several ecosystem repositories for the Cloudberry Database, including the website, extensions, connectors, adapters, and other utilities.
+
+open-gpdb/yezzey: Extension to fast offload/download AO/AOCS data to/from S3.
+open-gpdb/yproxy: GP <-> S3 proxy for schedule and limit requests rate from hot to S3
+open-gpdb/pgaudit: PGAudit extension for GP
+open-gpdb/gp_relaccess_stats: Greenplum extension to collect stats on table operations like SELECT/UPDATE/INSERT/DELETE/TRUNCATE
+open-gpdb/gp_relsizes_stats: Greenplum extension to collect statistics on the distribution of memory occupied by tables and files on segment hosts.
+open-gpdb/pxf: Platform Extension Framework (PXF) for Greenplum Database.
+
+### Other projects weid like to recommend
+
+https://github.com/wal-g/wal-g Database physical backup/restore tool
+https://github.com/cloudberrydb/cloudberrydb New MPP Database compatible with Greenplum Database
+https://github.com/greenplum-db Archived original Greenplum Database
+
 ## Community & Support 
 
 ## Contribution
