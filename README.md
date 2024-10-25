@@ -33,6 +33,7 @@ This is the main repository for Greenplum Database. Alongside this, there are se
 
 - [wal-g](https://github.com/wal-g/wal-g) Database physical backup/restore tool
 - [cloudberry](https://github.com/cloudberrydb/cloudberrydb) New MPP Database compatible with Greenplum Database
+- [odyssey](https://github.com/yandex/odyssey) Pooler for GP
 - [gpdb](https://github.com/greenplum-db) Archived original Greenplum Database
 
 ## Community & Support 
